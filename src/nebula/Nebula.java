@@ -2,10 +2,11 @@ package nebula;
 
 import org.opennebula.client.Client;
 import org.opennebula.client.ClientConfigurationException;
+import org.opennebula.client.OneResponse;
 
 public class Nebula {
 	
-	public Client client;
+	protected Client client;
 	
 	public Nebula(){
 		
@@ -15,6 +16,13 @@ public class Nebula {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public void getVersion(){
+		
+		OneResponse resp = client.get_version();
+		System.out.println(resp.getMessage());
 		
 	}
 	
