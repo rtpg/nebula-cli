@@ -30,17 +30,29 @@ public class VirtualMachines extends Nebula {
 				System.out.print("STATUS : "+vm.lcmStateStr()+"; ");
 				String monitoring = vm.monitoring().getMessage();
 				Document document = DocumentHelper.parseText(monitoring);
-				System.out.print("HOST : "+document.selectSingleNode("//HOSTNAME").getText()+"; ");
-				System.out.print("HYPERVISEUR : "+document.selectSingleNode("//VMMMAD").getText()+"; ");
-				System.out.println("CPU : "+document.selectSingleNode("//CPU").getText()+"; ");
+				if (vm.state() == 3){ // ie VM running
+					System.out.print("HOST : "+document.selectSingleNode("//HOSTNAME").getText()+"; ");
+					System.out.print("HYPERVISEUR : "+document.selectSingleNode("//VMMMAD").getText()+"; ");
+					System.out.print("CPU used in %: "+document.selectSingleNode("//CPU").getText()+"; ");
+					System.out.println("Memory used in kB: "+document.selectSingleNode("//MEMORY").getText()+"; ");
+				}
 				
 			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
 		
+	}
+	
+	public void suspendVM(Integer id){
+		VirtualMachine vm = new VirtualMachine(39, client);
+		vm.suspend();
+	}
+	
+	public void restartVM(Integer id){
+		VirtualMachine vm = new VirtualMachine(39, client);
+		vm.resume();
 	}
 	
 }
