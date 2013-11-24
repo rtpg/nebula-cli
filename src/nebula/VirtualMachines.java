@@ -46,13 +46,45 @@ public class VirtualMachines extends Nebula {
 	}
 	
 	public void suspendVM(Integer id){
-		VirtualMachine vm = new VirtualMachine(39, client);
-		vm.suspend();
+		try{
+			VirtualMachine vm = new VirtualMachine(id, client);
+			vm.suspend();
+			System.out.println("Virtual Machine suspended");
+		} catch (Exception e){
+			System.out.println("Error while suspending Virtual Machine");
+		}
+		
 	}
 	
 	public void restartVM(Integer id){
-		VirtualMachine vm = new VirtualMachine(39, client);
-		vm.resume();
+		try{
+			VirtualMachine vm = new VirtualMachine(id, client);
+			vm.resume();
+			System.out.println("Virtual Machine restarted");
+		} catch (Exception e){
+			System.out.println("Error while restarting Virtual Machine");
+		}
+		
+	}
+	
+	public void deleteVM(Integer id){
+		try{
+			VirtualMachine vm = new VirtualMachine(id, client);
+			vm.delete();
+			System.out.println("Virtual Machine deleted");
+		} catch (Exception e){
+			System.out.println("Error while deleting Virtual Machine");
+		}
+	}
+	
+	public void migrateVM(Integer idVM, Integer idHost){
+		try{
+			VirtualMachine vm = new VirtualMachine(idVM, client);
+			vm.migrate(idHost);
+			System.out.println("Virtual Machine deleted");
+		} catch (Exception e){
+			System.out.println("Error while deleting Virtual Machine");
+		}
 	}
 	
 }
