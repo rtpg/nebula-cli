@@ -20,6 +20,7 @@ public class VirtualMachines extends Nebula {
 	public void displayVM(){
 		
 		Iterator<VirtualMachine> vms = vmPool.iterator();
+		System.out.println("There are "+vmPool.getLength()+" hosts");
 		while(vms.hasNext()){
 			
 			try {
@@ -31,8 +32,8 @@ public class VirtualMachines extends Nebula {
 				String monitoring = vm.monitoring().getMessage();
 				Document document = DocumentHelper.parseText(monitoring);
 				if (vm.state() == 3){ // ie VM running
-					System.out.print("HOST : "+document.selectSingleNode("//HOSTNAME").getText()+"; ");
-					System.out.print("HYPERVISEUR : "+document.selectSingleNode("//VMMMAD").getText()+"; ");
+					System.out.print("HOST Name: "+document.selectSingleNode("//HOSTNAME").getText()+"; ");
+					System.out.print("HOST Id: "+document.selectSingleNode("//HID").getText()+"; ");
 					System.out.print("CPU used in %: "+document.selectSingleNode("//CPU").getText()+"; ");
 					System.out.println("Memory used in kB: "+document.selectSingleNode("//MEMORY").getText()+"; ");
 				}
