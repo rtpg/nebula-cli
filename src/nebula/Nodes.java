@@ -17,7 +17,7 @@ public class Nodes extends Nebula {
 		hostPool = new HostPool(client);
 	}
 	
-	public void getNodes(){
+	public void listNodes(){
 		
 		System.out.println("There are "+hostPool.getLength()+" hosts");
 		Iterator<Host> hosts = hostPool.iterator();
