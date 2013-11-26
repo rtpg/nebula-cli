@@ -37,6 +37,8 @@ public class Nodes extends Nebula {
 				System.out.println("Memory Free: "+document.selectSingleNode("//FREE_MEM").getText()+"; ");
 			} catch (DocumentException e) {
 				e.printStackTrace();
+			} catch (Exception e){
+				System.out.println("Error while getting nodes : "+e.toString());
 			}
 		}
 		

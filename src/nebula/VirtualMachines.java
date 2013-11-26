@@ -40,6 +40,8 @@ public class VirtualMachines extends Nebula {
 				
 			} catch (DocumentException e) {
 				e.printStackTrace();
+			} catch (Exception e){
+				System.out.println("Error while getting VM : "+e.toString());
 			}
 			
 		}
@@ -52,7 +54,7 @@ public class VirtualMachines extends Nebula {
 			vm.suspend();
 			System.out.println("Virtual Machine suspended");
 		} catch (Exception e){
-			System.out.println("Error while suspending Virtual Machine");
+			System.out.println("Error while suspending Virtual Machine : "+e.toString());
 		}
 		
 	}
@@ -63,7 +65,7 @@ public class VirtualMachines extends Nebula {
 			vm.resume();
 			System.out.println("Virtual Machine restarted");
 		} catch (Exception e){
-			System.out.println("Error while restarting Virtual Machine");
+			System.out.println("Error while restarting Virtual Machine : "+e.toString());
 		}
 		
 	}
@@ -74,7 +76,7 @@ public class VirtualMachines extends Nebula {
 			vm.delete();
 			System.out.println("Virtual Machine deleted");
 		} catch (Exception e){
-			System.out.println("Error while deleting Virtual Machine");
+			System.out.println("Error while deleting Virtual Machine : "+e.toString());
 		}
 	}
 	
