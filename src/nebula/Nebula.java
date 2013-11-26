@@ -1,7 +1,6 @@
 package nebula;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -12,14 +11,13 @@ import org.opennebula.client.OneResponse;
 public class Nebula {
 	
 	protected Client client;
-	
-	
+	private BufferedReader br;
 	
 	public Nebula(){	
 		String login = null,address = null;
 		try {
 			try {
-				BufferedReader br = new BufferedReader(new FileReader("login.config"));
+				br = new BufferedReader(new FileReader("login.config"));
 				login=br.readLine();
 				address=br.readLine();
 			}catch (IOException fnfe){
