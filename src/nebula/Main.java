@@ -48,6 +48,7 @@ public class Main {
 					try{
 						vm_id=Integer.parseInt(vm_id_str);
 						destination_node=Integer.parseInt(destination_node_str);
+						new VirtualMachines().migrateVM(vm_id, destination_node);
 					}catch(NumberFormatException nfe){
 						System.out.println("error: ID must be an integer");
 					}
@@ -69,7 +70,15 @@ public class Main {
 		}
 	}
 	public static void P(String arg){ System.out.println(arg); };
-	public static String help_text= "nebula API tools\n";
+	
+	public static String help_text= "nebula API tool \n"
+			+ "version : retrieves version of Open Nebula used \n"
+			+ "node list : retrieves the list of nodes \n"
+			+ "vm list : retrieves the list of all virtual machines \n"
+			+ "vm delete $id : deletes the virtual machine with the given id \n"
+			+ "vm suspend $id : suspends the virtual machine with the given id \n"
+			+ "vm restart $id : restarts the virtual machine with the given id \n"
+			+ "vm migrate $vmid $nodeid : migrate the virtual machine with the given id to the node";
 	
 	public static void main(String[] args) {
 
