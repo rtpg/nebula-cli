@@ -9,13 +9,9 @@ import java.io.Reader;
 import org.opennebula.client.Client;
 
 public class Main {
-	public static String usageString = "nebula command line : ";
-	//nebula vm [stuff]
+	
 	public static void vm_do(String[] args,VirtualMachines vms){
 		switch(args[1]){
-			case "create":
-			    //create a vm and print info
-				break;
 			case "list":
 				vms.displayVM();
 				break;
@@ -24,7 +20,7 @@ public class Main {
 			case "restart": 
 			case "detail":
 				if(args.length==2 ){
-					//print usage
+					P(help_text);
 				}else{
 					String id=args[2];
 					int parsedId = 0;
@@ -43,8 +39,8 @@ public class Main {
 					case "restart":
 						vms.restartVM(parsedId);
 						break;
-					case "detail":
-						//details
+					default:
+						P(help_text);
 						break;
 					}
 				}
@@ -64,6 +60,8 @@ public class Main {
 					}
 					
 				}
+			default:
+				P(help_text);
 		}
 	}
 	
@@ -74,14 +72,14 @@ public class Main {
 			ns.listNodes();
 			break;
 		default:
-			//print the usage
+			P(help_text);
 		}
 	}
 	public static void P(String arg){ System.out.println(arg); };
-	public static String help_text= "nebula API tool"
-			+ "usage :    ";
+	public static String help_text= "nebula API tools\n";
+	
 	public static void main(String[] args) {
-		
+
 		if(args.length==0){
 			P(help_text);
 		}
@@ -92,7 +90,7 @@ public class Main {
 				break;
 			case "vm":
 				if(args.length==1){
-					//print usage
+					P(help_text);
 				}else{
 					vm_do(args, new VirtualMachines());
 				}
