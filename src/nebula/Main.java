@@ -1,6 +1,5 @@
 package nebula;
 
-
 public class Main {
 	
 	public static void vm_do(String[] args,VirtualMachines vms){
@@ -10,12 +9,10 @@ public class Main {
 				break;
 			case "delete":
 			case "suspend":
-			case "restart": 
-			case "detail":
+			case "restart":
 				if(args.length==2 ){
 					P(help_text);
 				}else{
-					String id=args[2];
 					int parsedId = 0;
 					try{
 						parsedId = Integer.parseInt(args[2]);
@@ -54,6 +51,7 @@ public class Main {
 					}
 					
 				}
+				break;
 			default:
 				P(help_text);
 		}
@@ -79,9 +77,8 @@ public class Main {
 			+ "vm suspend $id : suspends the virtual machine with the given id \n"
 			+ "vm restart $id : restarts the virtual machine with the given id \n"
 			+ "vm migrate $vmid $nodeid : migrate the virtual machine with the given id to the node";
-	
 	public static void main(String[] args) {
-
+		
 		if(args.length==0){
 			P(help_text);
 		}
@@ -106,5 +103,5 @@ public class Main {
 			}
 		}
 	}
-
+		
 }

@@ -1,10 +1,13 @@
 package nebula;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
+import org.dom4j.Node;
+import org.opennebula.client.Pool;
 import org.opennebula.client.vm.VirtualMachine;
 import org.opennebula.client.vm.VirtualMachinePool;
 
@@ -18,9 +21,10 @@ public class VirtualMachines extends Nebula {
 	}
 	
 	public void displayVM(){
-		
+		vmPool.monitoring(Pool.ALL);
+		vmPool.info();
 		Iterator<VirtualMachine> vms = vmPool.iterator();
-		System.out.println("There are "+vmPool.getLength()+" hosts");
+		System.out.println("There are "+vmPool.getLength()+" vm");
 		while(vms.hasNext()){
 			
 			try {
@@ -32,8 +36,12 @@ public class VirtualMachines extends Nebula {
 				String monitoring = vm.monitoring().getMessage();
 				Document document = DocumentHelper.parseText(monitoring);
 				if (vm.state() == 3){ // ie VM running
-					System.out.print("HOST Name: "+document.selectSingleNode("//HOSTNAME").getText()+"; ");
-					System.out.print("HOST Id: "+document.selectSingleNode("//HID").getText()+"; ");
+					@SuppressWarnings("unchecked")
+					List<Node> hostsName = document.selectNodes("//HOSTNAME");
+					System.out.print("HOST Name: "+hostsName.get(hostsName.size()-1).getText()+"; ");
+					@SuppressWarnings("unchecked")
+					List<Node> hostsId = document.selectNodes("//HID");
+					System.out.print("HOST Id: "+hostsId.get(hostsId.size()-1).getText()+"; ");
 					System.out.print("CPU used in %: "+document.selectSingleNode("//CPU").getText()+"; ");
 					System.out.println("Memory used in kB: "+document.selectSingleNode("//MEMORY").getText()+"; ");
 				}
@@ -84,7 +92,7 @@ public class VirtualMachines extends Nebula {
 		try{
 			VirtualMachine vm = new VirtualMachine(idVM, client);
 			vm.migrate(idHost);
-			System.out.println("Virtual Machine deleted");
+			System.out.println("Virtual Machine migrated");
 		} catch (Exception e){
 			System.out.println("Error while deleting Virtual Machine");
 		}
